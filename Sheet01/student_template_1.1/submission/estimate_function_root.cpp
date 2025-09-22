@@ -1,4 +1,8 @@
 // estimate_function_root.cpp - student template:
+/*
+Philipp Schmid: 5703070
+Max Staneker: 7018590
+*/
 // Estimate the root (or x) of a given linear function, that is, f(x) = 0 using intervall bisection.
 #include <iostream>
 #include <stdio.h>
