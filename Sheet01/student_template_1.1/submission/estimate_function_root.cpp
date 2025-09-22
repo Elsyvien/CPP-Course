@@ -20,8 +20,8 @@ float exampleDecreasingLinearFunc(float x)
 Rounds a float value to n decimal places. E.g. val=1.555, n=2 returns 1.56*/
 float roundValToNDecimals(float val, unsigned int n)
 {
-    //TODO: 1a)
-    return 0.0f;
+    float factor = std::pow(10.0f, static_cast<float>(n));
+    return std::round(val * factor) / factor;
 }
 
 /* TODO: 1b)
@@ -29,8 +29,7 @@ float roundValToNDecimals(float val, unsigned int n)
 otherwise returns false. Default epsilon checks for 5 decimal precision.*/
 bool isAlmostEqual(float x1, float x2, float epsilon = 1.0e-5)
 {
-    //TODO: 1b)
-    return false;
+    return std::abs(x1 - x2) <= epsilon;
 }
 
 /* TODO: 1c-f)
@@ -40,8 +39,30 @@ If the root is estimated (the intervall becomes small enough) the resulting x-va
 If linear function in the specified interval does not have a root, it returns NAN. */
 float estimateFunctionRoot(float (*linearFunc)(float), float xLower, float xUpper, unsigned int nDecimals)
 {
-    //TODO: 1c-f)
-    return 0.0f;
+    float fLower = linearFunc(xLower);
+    float fUpper = linearFunc(xUpper);
+
+    // Edge Cases
+    if (fLower == 0.0f) return roundValToNDecimals(xLower, nDecimals);
+    if (fUpper == 0.0f) return roundValToNDecimals(xUpper, nDecimals);
+
+    while (!isAlmostEqual(xLower, xUpper)) {
+        const float xMid = 0.5f * (xLower + xUpper);
+        const float fMid = linearFunc(xMid);
+
+        if (fMid == 0.0f) return roundValToNDecimals(xMid, nDecimals);
+
+        const bool changeLeft = (fLower > 0.0f && fMid < 0.0f) || (fLower < 0.0f && fMid > 0.0f);
+        if (changeLeft) {
+            xUpper = xMid;
+            fUpper = fMid;
+        } else {
+            xLower = xMid;
+            fLower = fMid;
+        }
+    }
+    const float xRoot = 0.5f * (xLower + xUpper);
+    return roundValToNDecimals(xRoot, nDecimals);
 }
 
 /* Calls estimateFunctionRoot of increasing example function with the specified interval [lowerBound; upperBound] and prints out the result. */
