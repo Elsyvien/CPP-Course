@@ -1,3 +1,7 @@
+/*
+Philipp Schmid: 5703070
+Max Staneker: 7018590
+*/
 #include "insertion_sort.h"
 
 #include <iostream>
@@ -29,11 +33,16 @@ void printArray(int arr[], int nElements)
     cout << endl;
 }
 
-/// Insertion sort algorithm sorts given integer array ascending with n elements.
+/// Insertion sort algorithm sorts given integer array ascending with n elements. Using std::swap.
 void insertionSort(int arr[], int nElements)
 {
-    // TODO: implement insertion sort with the use of the std::swap function
-
+    for (int i = 1; i < nElements; i++) {
+        int j = i;
+        while (j > 0 && arr[j - 1] > arr[j]) {
+            std::swap(arr[j], arr[j - 1]);
+            j--;
+        }
+    }
 }
 
 /* Test insertion sort with two arrays containing 5000 elements ascending and descending and
