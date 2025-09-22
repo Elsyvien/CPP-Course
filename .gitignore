@@ -29,3 +29,12 @@ Sheet01/build/estimate_function_root
 Sheet01/student_template_1.1/build/estimate_function_root
 Sheet01/student_template_1.1/build/libsubmission.so
 *.zip
+Sheet02/build/.ninja_log
+Sheet02/build/.ninja_deps
+Sheet02/student_template_2.2/build/libsubmission.so
+Sheet02/student_template_2.2/build/build.ninja
+Sheet02/student_template_2.2/build/.ninja_log
+Sheet02/student_template_2.2/build/.ninja_deps
+Sheet02/build/libsubmission.so
+Sheet02/build/.ninja_log
+Sheet02/build/.ninja_deps
