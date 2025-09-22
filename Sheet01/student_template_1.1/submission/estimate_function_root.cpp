@@ -45,14 +45,16 @@ float estimateFunctionRoot(float (*linearFunc)(float), float xLower, float xUppe
     // Edge Cases
     if (fLower == 0.0f) return roundValToNDecimals(xLower, nDecimals);
     if (fUpper == 0.0f) return roundValToNDecimals(xUpper, nDecimals);
+    if ((fLower > 0.0f && fUpper > 0.0f) || (fLower < 0.0f && fUpper < 0.0f)) return NAN; // No root in interval
 
+    // Bisection method
     while (!isAlmostEqual(xLower, xUpper)) {
         const float xMid = 0.5f * (xLower + xUpper);
         const float fMid = linearFunc(xMid);
 
         if (fMid == 0.0f) return roundValToNDecimals(xMid, nDecimals);
 
-        const bool changeLeft = (fLower > 0.0f && fMid < 0.0f) || (fLower < 0.0f && fMid > 0.0f);
+        const bool changeLeft = (fLower > 0.0f && fMid < 0.0f) || (fLower < 0.0f && fMid > 0.0f); // Change of sign
         if (changeLeft) {
             xUpper = xMid;
             fUpper = fMid;
@@ -113,6 +115,15 @@ void testEstimateFunctionRoot()
     // Test 1e) Special case: no root found, return NAN
     testAndPrintIncreasing(0.0f, 0.02f);
 
+    testAndPrintIncreasing(0.0f, 0.0f);
+
+    testAndPrintDecreasing(1.0f, 1.0f);
+
     // Test 1f) Test decreasing function as well
     testAndPrintDecreasing(-1.0f, 1.0f);
+
+    testAndPrintDecreasing(-1.0f, -0.03125f);
+    testAndPrintDecreasing(-0.03125f, 1.0f);
+    testAndPrintDecreasing(-0.1f, 0.0f);
+    testAndPrintDecreasing(0.0f, 0.02f);
 }
