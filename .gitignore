@@ -28,3 +28,4 @@ Sheet01/build/estimate_function_root
 *.idx
 Sheet01/student_template_1.1/build/estimate_function_root
 Sheet01/student_template_1.1/build/libsubmission.so
+*.zip
