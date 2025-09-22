@@ -1,0 +1,5 @@
+# ninja log v6
+1	41	1758106122052705694	CMakeFiles/exercise0.dir/main.cpp.o	a407b1a08072627d
+1	409	1758106122051356905	CMakeFiles/submission.dir/submission/exercise_00.cpp.o	d8090cecb3cbcbc7
+409	465	1758106122460555308	libsubmission.so	c6755f17a32b82e
+465	520	1758106122516100691	exercise0	af8ca9d62868c234
