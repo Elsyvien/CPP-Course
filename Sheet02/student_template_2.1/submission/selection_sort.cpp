@@ -1,3 +1,8 @@
+/*
+Philipp Schmid: 5703070
+Max Staneker: 7018590
+*/
+
 #include "selection_sort.h"
 
 #include <iostream>
@@ -32,6 +37,8 @@ void printArray(int arr[], int nElements)
 /// Selection sort algorithm sorts given integer array ascending with n elements.
 void selectionSort(int arr[], int nElements)
 {
+    if (nElements < 2) return; 
+
     using namespace std;
     int currentMinIndex;
 
