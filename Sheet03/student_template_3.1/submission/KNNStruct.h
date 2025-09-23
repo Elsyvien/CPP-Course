@@ -10,8 +10,11 @@ struct DYNPoint {
 	// We can mark functions as nodiscard to indicate that we must use the return value in some way (e.g, it doesn't get discarded as ).
 	[[nodiscard]] static DYNPoint createRandomPoint(unsigned int size, int minimum=-5000, int maximum=5000) {
 		DYNPoint p;
-		if (size > 0 && minimum <= maximum) {			
-			// STUDENT TODO: add your code			
+		float factor = (float) (maximum - minimum) / (float) RAND_MAX;
+		if (size > 0 && minimum <= maximum) {
+			for (int i = 0; i < size; i++) {
+				p.data.push_back(((float) std::rand() * factor) + (float) minimum);
+			}
 		}
 		return p;
 	}
@@ -47,19 +50,26 @@ struct KNN {
 };
 
 float DistanceManhattan(const DYNPoint &A, const DYNPoint &B) {
+	if (A.data.size() != B.data.size() || A.data.empty()) { return -1;}
+	float dist = 0.0f;
 
-	// STUDENT TODO: your code
-
-	return 0;
-
+	for (auto i = 0; i < A.data.size(); i++) {
+		dist += std::abs(A.data[i] - B.data[i]);
+	}
+	dist = dist / (float) (A.data.size());
+	return dist;
 }
 
 float DistanceEuclid(const DYNPoint &A, const DYNPoint &B) {
+	if (A.data.size() != B.data.size() || A.data.empty()) { return -1;}
+	float dist = 0.0f;
 
-	// STUDENT TODO: your code
-
-	return 0;
-
+	for (auto i = 0; i < A.data.size(); i++) {
+		float currentDist = A.data[i] - B.data[i];
+		dist += currentDist * currentDist;
+	}
+	dist = std::sqrt(dist / (float) (A.data.size()));
+	return dist;
 }
 
 void createDataset(std::vector<std::pair<DYNPoint, unsigned int>> &dataset, const unsigned int amount, const unsigned int class_label,
