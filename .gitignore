@@ -41,3 +41,4 @@ Sheet02/build/.ninja_deps
 /Sheet02/student_template_2.2/build
 Sheet03/.clangd
 Sheet03/.editorconfig
+Sheet03/build/build.ninja
