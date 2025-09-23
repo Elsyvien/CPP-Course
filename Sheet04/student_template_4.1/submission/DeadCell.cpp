@@ -1,14 +1,14 @@
 #include "DeadCell.h"
 //TODO: task c)
 DeadCell::DeadCell(double health_, double power_, double defence_)
-// Your Code
+: Food::Food(health_, power_, defence_, 10.0, 100.0)
 {
-  // Your Code
+  name = "DeadCell";
 }
+
 
 DeadCell::~DeadCell() {}
 //TODO: task k)
 Food *DeadCell::clone() const {
-  // Your Code
-  return 0;
+  return new DeadCell(*this);
 }

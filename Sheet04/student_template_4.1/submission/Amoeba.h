@@ -16,5 +16,5 @@ public:
 
 protected:
   double dna_level{};
-  //TODO: task f)
+  double dna_level_th{};
 };

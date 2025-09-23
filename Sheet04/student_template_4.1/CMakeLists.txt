@@ -21,7 +21,7 @@ include(cmake/compiler_warnings.cmake)
 set_project_warnings(project_warnings)
 
 # Define the library that is compiled from the submission
-add_library(submission SHARED submission/Amoeba.cpp submission/DeadCell.cpp submission/Food.cpp)
+add_library(submission SHARED submission/Amoeba.cpp submission/DeadCell.cpp submission/Food.cpp submission/Bacterium.cpp submission/Virus.cpp)
 target_include_directories(submission PRIVATE lib/)
 target_include_directories(submission PRIVATE include/)
 target_link_libraries(submission PRIVATE project_options project_warnings)

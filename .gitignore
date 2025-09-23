@@ -46,3 +46,7 @@ Sheet03/build/.ninja_log
 Sheet03/build/.ninja_deps
 /Sheet03/build
 Sheet04/build/build.ninja
+Sheet04/build/.ninja_deps
+Sheet04/build/.ninja_log
+Sheet04/build/libsubmission.so
+/Sheet04/build
