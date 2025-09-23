@@ -1,7 +1,12 @@
+/*
+Max Staneker
+Philipp Schmid
+*/
+
 #include <iostream>
 #include <vector>
 #include <cmath>
-
+#include <algorithm>
 
 struct DYNPoint {
 	std::vector<float> data;
@@ -36,14 +41,48 @@ struct KNN {
 		trainingData = dataset;
 	}
 
-	int classify(const unsigned int k, const DYNPoint &A) const {
+	static bool compareByDistance(const std::pair<float, unsigned int> &a, const std::pair<float, unsigned int> &b) {
+		return a.first < b.first;
+	}
 
+
+	int classify(const unsigned int k, const DYNPoint &A) const {
 		int class_label = -1;
 
 		if (k && function_ptr_Distance && trainingData.size()) {
+			//distance, class label
+			std::vector<std::pair<float, unsigned int>> distancesLabels; 
 
-			// STUDENT TODO: your code
+			for (auto i = 0; i < trainingData.size(); i++) {
+				float dist = function_ptr_Distance(A, trainingData[i].first);
+				if (dist >= 0) {
+					distancesLabels.emplace_back(dist, trainingData[i].second);
+				}
+			}
 
+			std::sort(distancesLabels.begin(), distancesLabels.end(), compareByDistance);
+
+			auto top = std::min(k, (unsigned int) (distancesLabels.size()));
+
+			std::vector<int> labelCount; 
+			auto maxCount = 0;
+			auto topLabel = 0; 
+
+			for (auto i = 0; i < top; i++) {
+				auto label = distancesLabels[i].second;
+
+				if (labelCount.size() <= label) {
+					labelCount.resize(label + 1, 0);
+				}
+
+				labelCount[label]++;
+
+				if (labelCount[label] > maxCount) {
+					maxCount = labelCount[label];
+					topLabel = label;
+				}
+			}
+			class_label = topLabel;
 		}
 		return class_label;
 	}
@@ -76,8 +115,11 @@ void createDataset(std::vector<std::pair<DYNPoint, unsigned int>> &dataset, cons
 				const unsigned int point_size, const int minimum, const int maximum) {
 
 	if (amount > 0 && point_size>0 && minimum <= maximum) {
-
-	// STUDENT TODO: your code
+		
+		for (unsigned int i = 0; i < amount; ++i) {
+			DYNPoint p = DYNPoint::createRandomPoint(point_size, minimum, maximum);
+			dataset.emplace_back(std::move(p), class_label);
+		}
 
 	}
 }
