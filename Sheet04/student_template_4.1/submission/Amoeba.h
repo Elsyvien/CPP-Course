@@ -14,6 +14,9 @@ public:
 
   void eat(double health, double dna);
 
+  void print_header() override;
+  void print() override;
+
 protected:
   double dna_level{};
   double dna_level_th{100.0};

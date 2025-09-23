@@ -15,12 +15,29 @@ Amoeba::Amoeba(double health_, double power_, double defence_, double dna_level_
   this->dna_level = 0.0;
   this->dna_level_th = dna_level_th;
 }
-
 Amoeba::~Amoeba(){};
 //TODO: task k)
 Food *Amoeba::clone() const {
   return new Amoeba(*this);
 }
+
+void Amoeba::print_header() {
+  std::cout << std::setw(10) << "name" 
+            << std::setw(10) << "health" 
+            << std::setw(10) << "power" 
+            << std::setw(10) << "defence" 
+            << std::setw(10) << "dna_level" 
+            << std::setw(10) << "dna_th" << std::endl;  
+}
+void Amoeba::print() {
+  std::cout << std::setw(10) << name 
+            << std::setw(10) << health 
+            << std::setw(10) << power 
+            << std::setw(10) << defence 
+            << std::setw(10) << dna_level 
+            << std::setw(10) << dna_level_th << std::endl;  
+}
+
 //TODO: task h)
 void Amoeba::eat(double health, double dna) {
   // Your Code here
