@@ -16,5 +16,5 @@ public:
 
 protected:
   double dna_level{};
-  double dna_level_th{};
+  double dna_level_th{100.0};
 };
