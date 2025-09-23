@@ -10,5 +10,5 @@ DeadCell::DeadCell(double health_, double power_, double defence_)
 DeadCell::~DeadCell() {}
 //TODO: task k)
 Food *DeadCell::clone() const {
-  return new DeadCell(*this);
+  return new DeadCell(health, power, defence);
 }

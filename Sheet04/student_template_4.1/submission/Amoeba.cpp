@@ -18,7 +18,7 @@ Amoeba::Amoeba(double health_, double power_, double defence_, double dna_level_
 
 //TODO: task k)
 Food *Amoeba::clone() const {
-  return new Amoeba(*this);
+  return new Amoeba(health, power, defence, dna_level_th);
 }
 
 void Amoeba::print_header() {

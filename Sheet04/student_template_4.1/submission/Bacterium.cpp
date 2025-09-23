@@ -9,5 +9,5 @@ Bacterium::Bacterium(double health_, double power_, double defence_)
 Bacterium::~Bacterium() {}
 
 Food *Bacterium::clone() const {
-    return new Bacterium(*this);
+    return new Bacterium(health, power, defence);
 }

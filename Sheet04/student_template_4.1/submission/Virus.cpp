@@ -8,5 +8,5 @@ Virus::Virus(double health_, double power_, double defence_)
 Virus::~Virus() {}
 
 Food *Virus::clone() const {
-  return new Virus(*this);
+  return new Virus(health, power, defence);
 }
