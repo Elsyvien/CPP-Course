@@ -21,24 +21,32 @@ Food *Amoeba::clone() const {
   return new Amoeba(*this);
 }
 
-void Amoeba::print_header() {
-  std::cout << std::setw(10) << "name" 
-            << std::setw(10) << "health" 
-            << std::setw(10) << "power" 
-            << std::setw(10) << "defence" 
-            << std::setw(10) << "dna_level" 
-            << std::setw(10) << "dna_th" << std::endl;  
+void Food::print_header() {
+  std::cout << std::setw(10) << "name" << " | ";
+  std::cout << std::setw(10) << "health" << " | ";
+  std::cout << std::setw(10) << "power" << " | ";
+  std::cout << std::setw(10) << "defence" << " | ";
+  std::cout << std::setw(10) << "dna lvl" << " | ";
+  std::cout << std::setw(10) << "dna lvl threshhold" << std::endl;
 }
-void Amoeba::print() {
-  std::cout << std::setw(10) << name 
-            << std::setw(10) << health 
-            << std::setw(10) << power 
-            << std::setw(10) << defence 
-            << std::setw(10) << dna_level 
-            << std::setw(10) << dna_level_th << std::endl;  
+
+void Food::print() {
+  std::cout << std::setw(10) << name << " | ";
+  std::cout << std::setw(10) << health << " | ";
+  std::cout << std::setw(10) << power << " | ";
+  std::cout << std::setw(10) << defence << " | ";
+  std::cout << std::setw(10) << dna_level << " | ";
+  std::cout << std::setw(10) << dna_level_th << std::endl;
 }
 
 //TODO: task h)
 void Amoeba::eat(double health, double dna) {
-  // Your Code here
+  this->dna_level += dna;
+  this->health += health;
+
+  if (this->dna_level >= this->dna_level_th) {
+    this->power *= 1.2;
+    this->defence *= 1.2;
+    this->dna_level = 0.0;
+  }
 }
