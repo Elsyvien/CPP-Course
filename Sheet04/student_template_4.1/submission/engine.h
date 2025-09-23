@@ -2,7 +2,10 @@
 
 // own classes
 #include "Amoeba.h"
+#include "Bacterium.hpp"
 #include "DeadCell.h"
+#include "Virus.hpp"
+
 
 // STL classes
 #include <vector>
@@ -73,7 +76,19 @@ void engine()
 
     // define a vector with distinct enemies (DeadCell, Bacterium, ...) which are the competitors and available to fight in this round
     std::vector<Food *> all_enemies;
-    // Your Code here
+  
+    Amoeba amoeba(1000, 50, 50, 100);
+    all_enemies.push_back(new Amoeba (amoeba));
+
+    DeadCell deadcell(random_value(difficulty)*10, random_value(difficulty)*0, random_value(difficulty)*0);
+    all_enemies.push_back(new DeadCell (deadcell));
+
+    Bacterium bacterium(random_value(difficulty)*200, random_value(difficulty)*10, random_value(difficulty)*50);
+    all_enemies.push_back(new Bacterium (bacterium));
+
+    Virus virus(random_value(difficulty)*500, random_value(difficulty)*25, random_value(difficulty)*25);
+    all_enemies.push_back(new Virus (virus));
+
     if(all_enemies.empty()) return;
 
     player.print_header();

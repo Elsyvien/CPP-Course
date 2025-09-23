@@ -15,22 +15,22 @@ Amoeba::Amoeba(double health_, double power_, double defence_, double dna_level_
   this->dna_level = 0.0;
   this->dna_level_th = dna_level_th;
 }
-Amoeba::~Amoeba(){};
+
 //TODO: task k)
 Food *Amoeba::clone() const {
   return new Amoeba(*this);
 }
 
-void Food::print_header() {
+void Amoeba::print_header() {
   std::cout << std::setw(10) << "name" << " | ";
   std::cout << std::setw(10) << "health" << " | ";
   std::cout << std::setw(10) << "power" << " | ";
   std::cout << std::setw(10) << "defence" << " | ";
-  std::cout << std::setw(10) << "dna lvl" << " | ";
-  std::cout << std::setw(10) << "dna lvl threshhold" << std::endl;
+  std::cout << std::setw(10) << "dna level" << " | ";
+  std::cout << std::setw(10) << "dna level threshold" << std::endl;
 }
 
-void Food::print() {
+void Amoeba::print() {
   std::cout << std::setw(10) << name << " | ";
   std::cout << std::setw(10) << health << " | ";
   std::cout << std::setw(10) << power << " | ";
@@ -43,10 +43,7 @@ void Food::print() {
 void Amoeba::eat(double health, double dna) {
   this->dna_level += dna;
   this->health += health;
-
-  if (this->dna_level >= this->dna_level_th) {
-    this->power *= 1.2;
-    this->defence *= 1.2;
-    this->dna_level = 0.0;
-  }
+  if (dna_level >= dna_level_th) { dna_level *= 2.0; dna_level = 0.0;}
 }
+
+Amoeba::~Amoeba(){}
