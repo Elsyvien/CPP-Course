@@ -54,3 +54,4 @@ Sheet05/.clangd
 Sheet05/.editorconfig
 Sheet05/build/build.ninja
 /Sheet05/build
+.DS_Store
