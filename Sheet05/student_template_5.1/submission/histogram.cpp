@@ -38,14 +38,47 @@ std::vector<std::pair<double, std::string>> Histogram::most_common_words(const s
   std::multimap<double, std::string, std::greater<>> histo_sorted;
   std::vector<std::pair<double, std::string>> result;
 
-  for (std::map<std::string, double>::const_iterator i = histogram.begin(); i != histogram.end(); i++) {
-    histo_sorted.emplace(i->second, i->first);
+  for (auto it = histogram.begin(); it != histogram.end(); it++) {
+    const std::string& word = it->first; 
+    double prob = it->second;           
+    histo_sorted.insert({prob, word}); 
   }
 
-  for (std::multimap<double, std::string>::const_iterator i = histo_sorted.begin(); i != histo_sorted.end() && result.size() < n; i++) {
-    result.emplace_back(i->first, i->second);
+  for (auto it = histo_sorted.begin(); it != histo_sorted.end(); it++) {
+    if (result.size() >= n) {
+      break; 
+    }
+
+    const auto& entry = *it;           
+    double prob = entry.first;        
+    const std::string& word = entry.second; 
+
+    result.emplace_back(prob, word);
   }
+
   return result;
 }
 // TODO 5.1.c
+double Histogram::dissimilarity(const Histogram &other) const {
+  double sum = 0.0;
+  int count = 0;
+  for (auto it = histogram.begin(); it != histogram.end(); it++) {
+    if (other.contains(it->first) == true) {
+      count++;
+      sum += std::abs(probability(it->first) - other.probability(it->first));
+    }
+  }
+
+  if (count == 0) { return 0.0; }
+  return (1.0 - (count / (double) size())) + (1.0 - (count / (double) other.size())) + sum;
+
+}
 // TODO 5.1.d
+size_t Histogram::closest(const std::vector<Histogram> &others) const {
+  std::multimap<double, size_t> candidateMap;
+  for (auto i = 0; i < others.size(); i++) {
+    double dissim = dissimilarity(others[i]);
+    candidateMap.insert({dissim, i});
+  }
+  return candidateMap.begin()->second;
+}

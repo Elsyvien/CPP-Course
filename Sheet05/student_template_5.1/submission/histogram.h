@@ -44,8 +44,9 @@ public:
   // TODO 5.1.b
   std::vector<std::pair<double, std::string>> most_common_words(const size_t n) const;
   // TODO 5.1.c
+  double dissimilarity(const Histogram &other) const;
   // TODO 5.1.d
-
+  size_t closest(const std::vector<Histogram> &candidates) const;
 private:
   // The histogram data is represented as map from word to probability (sorted)
   std::map<const std::string, double> histogram;
