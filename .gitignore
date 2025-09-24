@@ -50,3 +50,6 @@ Sheet04/build/.ninja_deps
 Sheet04/build/.ninja_log
 Sheet04/build/libsubmission.so
 /Sheet04/build
+Sheet05/.clangd
+Sheet05/.editorconfig
+Sheet05/build/build.ninja
