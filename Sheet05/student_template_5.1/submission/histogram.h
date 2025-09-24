@@ -42,6 +42,7 @@ public:
   double probability(const std::string &word) const;
 
   // TODO 5.1.b
+  std::vector<std::pair<double, std::string>> most_common_words(const size_t n) const;
   // TODO 5.1.c
   // TODO 5.1.d
 
