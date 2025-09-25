@@ -61,3 +61,21 @@ private:
     Shape clone_impl() const override;
     bool isInside_impl(const Point3D& p) const override;
 };
+
+class Sphere final : public Shape {
+private:
+    Shape clone_impl() const override;
+    bool isInside_impl(const Point3D& p) const override;
+};
+
+class Cylinder final : public Shape {
+private: 
+    Shape clone_impl() const override;
+    bool isInside_impl(const Point3D& p) const override;
+};
+
+class Octahedron final : public Shape {
+private:
+    Shape clone_impl() const override;
+    bool isInside_impl(const Point3D& p) const override;
+};

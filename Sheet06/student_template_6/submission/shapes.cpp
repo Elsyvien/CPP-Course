@@ -42,8 +42,6 @@ bool Shape::isInside(const Point3D& p) const
 
 Shape Shape::clone_impl() const
 {
-    // no default implementation available (but cannot set = 0, since we want to have instances of Shape)
-    // if you get this error, you forgot to implement the override
     throw std::logic_error("clone called on an abstract shape");
 }
 
@@ -81,4 +79,43 @@ Shape Cube::clone_impl() const
 
 bool Cube::isInside_impl(const Point3D& p) const {
     return getBounds().contains(p);
+}
+
+Shape Sphere::clone_impl() const {
+    return {std::make_shared<Sphere>()};
+}
+
+bool Sphere::isInside_impl(const Point3D& p) const {
+    float squareAdd = std::pow(p.x, 2) + std::pow(p.y, 2) + std::pow(p.z, 2);
+    float sqrt = std::sqrt(squareAdd);
+
+    if (sqrt <= 1) return true;
+
+    return false;
+}
+
+Shape Cylinder::clone_impl() const {
+    return { std::make_shared<Cylinder>() }; 
+}
+
+bool Cylinder::isInside_impl(const Point3D& p) const {
+    float squareAdd = std::pow(p.x, 2) + std::pow(p.y, 2);
+    float sqrt = std::sqrt(squareAdd);
+
+    if (sqrt <= 1 && -1 <= p.z && p.z <= 1) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+Shape Octahedron::clone_impl() const {
+    return { std::make_shared<Octahedron>() };
+}
+
+bool Octahedron::isInside_impl(const Point3D& p) const {
+    float absAdd = std::abs(p.x) + std::abs(p.y) + std::abs(p.z);
+
+    if (absAdd <= 1) return true;
+    else return false;
 }
