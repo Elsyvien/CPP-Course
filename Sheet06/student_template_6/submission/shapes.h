@@ -21,6 +21,13 @@ public:
   /// check if the point is part of the shape's volume
   bool isInside(const Point3D& p) const;
 
+  Shape operator&(const Shape & other) const;
+  Shape operator|(const Shape & other) const;
+  Shape operator^(const Shape & other) const;
+  Shape operator+(const Shape & other) const;
+  Shape operator-(const Shape & other) const;
+  Shape operator!() const;
+
 protected:
   // Protect default constructor to disallow instantiating abstract shapes.
   // If there was a pure virtual function, the compiler would prevent this already.
