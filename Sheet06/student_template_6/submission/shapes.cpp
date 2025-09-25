@@ -119,3 +119,27 @@ bool Octahedron::isInside_impl(const Point3D& p) const {
     if (absAdd <= 1) return true;
     else return false;
 }
+
+Shape Shape::operator+(const Shape& other) const {
+    return (*this | other).clone();
+}
+
+Shape Shape::operator-(const Shape& other) const {
+    return (*this & !other).clone();
+}
+
+Shape Shape::operator!() const {
+    return (Not(*this, Empty())).clone();
+}
+
+Shape Shape::operator&(const Shape& other) const {
+    return (And(*this, other)).clone();
+}
+
+Shape Shape::operator|(const Shape& other) const {
+    return (Or(*this, other)).clone();
+}
+
+Shape Shape::operator^(const Shape& other) const {
+    return (Xor(*this, other)).clone();
+}
