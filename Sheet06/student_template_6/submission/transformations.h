@@ -14,4 +14,38 @@ public:
 
 // of course, one could implement all these transformations jointly as a single transformation matrix.
 // for simplicity, we don't do that here.
+class Scaled : public Transformation {
+public:
+    Scaled(const Shape& shape, const Point3D& scale)
+    : Transformation(shape) {this->scale = scale;}
+Point3D scale;
+private:
+    Shape clone_impl() const override;
+    AABB getBounds_impl() const override;
+    bool isInside_impl(const Point3D& p) const override;
+};
+
+class Translated : public Transformation {
+public: 
+    Translated(const Shape& shape, const Point3D& translation)
+    : Transformation(shape) {this->translation = translation;}
+Point3D translation;
+private:
+    Shape clone_impl() const override;
+    AABB getBounds_impl() const override;
+    bool isInside_impl(const Point3D& p) const override;
+};
+
+class Rotated : public Transformation {
+public: 
+    Rotated(const Shape& shape, const Axis& axis, const float& angle)
+        : Transformation(shape) {this->axis = axis; this->angle = angle;};
+    float angle;
+    Axis axis;
+private:
+    Shape clone_impl() const override;
+    AABB getBounds_impl() const override;
+    bool isInside_impl(const Point3D& p) const override;
+};
+
 

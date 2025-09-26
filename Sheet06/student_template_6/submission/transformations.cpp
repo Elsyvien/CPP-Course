@@ -16,3 +16,38 @@ Transformation::Transformation(const Shape& shape)
 {
 
 }
+
+Shape Scaled::clone_impl() const { 
+    return {std::make_shared<Scaled>(sub_shape, scale)};
+}
+
+bool Scaled::isInside_impl(const Point3D& p) const {
+    Point3D scaled = p / scale;
+    return sub_shape.isInside(scaled);
+}
+
+AABB Scaled::getBounds_impl() const {
+    Point3D boundsMin = sub_shape.getBounds().min;
+    Point3D boundsMax = sub_shape.getBounds().max;
+    AABB result = {boundsMin * scale, boundsMax * scale };
+    return result;
+}
+
+Shape Translated::clone_impl() const {
+    return {std::make_shared<Translated>(sub_shape, translation)};
+}
+
+AABB Translated::getBounds_impl() const {
+    AABB originalShape = sub_shape.getBounds();
+    AABB result = {originalShape.min + translation, originalShape.max + translation};
+    return result;
+}
+
+bool Translated::isInside_impl(const Point3D& p) const {
+    Point3D translated = p + translation;
+    return sub_shape.isInside(translated);
+}
+
+Shape Rotated::clone_impl() const {
+    return {std::make_shared<Rotated>(sub_shape, Axis, angle)};
+}

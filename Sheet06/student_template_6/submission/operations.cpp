@@ -43,7 +43,7 @@ bool Xor::isInside_impl(const Point3D& p) const {
 }
 
 Shape Not::clone_impl() const {
-    return { std::make_shared<Not>(sub_shape_a) };
+    return { std::make_shared<Not>(sub_shape_a, sub_shape_b) };
 }
 
 bool Not::isInside_impl(const Point3D& p) const {
