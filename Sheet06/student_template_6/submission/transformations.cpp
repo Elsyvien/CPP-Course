@@ -49,5 +49,10 @@ bool Translated::isInside_impl(const Point3D& p) const {
 }
 
 Shape Rotated::clone_impl() const {
-    return {std::make_shared<Rotated>(sub_shape, Axis, angle)};
+    return {std::make_shared<Rotated>(sub_shape, axis, angle)};
+}
+
+bool Rotated::isInside_impl(const Point3D& p) const {
+    Point3D rotated = rotate2D(p, axis, angle);
+    return sub_shape.isInside(local);
 }
