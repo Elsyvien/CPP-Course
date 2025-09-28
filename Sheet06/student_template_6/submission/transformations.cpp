@@ -53,6 +53,7 @@ Shape Rotated::clone_impl() const {
 }
 
 bool Rotated::isInside_impl(const Point3D& p) const {
-    Point3D rotated = rotate2D(p, axis, angle);
-    return sub_shape.isInside(local);
+    std::pair<float, float> xy = rotate2D(p.x, p.y, -angle);
+    Point3D rotated{xy.first, xy.second, p.z};
+    return sub_shape.isInside(rotated);
 }
