@@ -28,6 +28,10 @@ public:
   Shape operator-(const Shape & other) const;
   Shape operator!() const;
 
+  Shape scaled(Point3D factor) const;
+  Shape translated(Point3D offset) const;
+  Shape rotated(Axis axis, float angle) const;  
+
 protected:
   // Protect default constructor to disallow instantiating abstract shapes.
   // If there was a pure virtual function, the compiler would prevent this already.
