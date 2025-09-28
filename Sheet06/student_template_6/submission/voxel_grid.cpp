@@ -56,6 +56,24 @@ Point3D VoxelGrid::voxelCenter(uint32_t x, uint32_t y, uint32_t z) const
 {
     throw std::logic_error("task 6.4 a)");
     (void) x, (void) y, (void) z; // silence unused parameter warning
+
+    // Stepsize per Subdiviion
+    auto boundMin = bounds.min;
+    auto boundMax = bounds.max;
+    
+    Point3D range = boundMax - boundMin;
+    Point3D step = range / Point3D{static_cast<float>(res_x),
+                                    static_cast<float>(res_y), 
+                                    static_cast<float>(res_z)};
+    Point3D stepSize = range / step;
+
+    Point3D offset = Point3D{((static_cast<float>(x) + 0.5f) * step.x,
+        (static_cast<float>(y) + 0.5f) * step.y,
+        (static_cast<float>(z) + 0.5f) * step.z
+    )};
+    Point3D center = boundMax - offset;
+    return center;
+    
 }
 
 std::ostream& operator<<(std::ostream& ostream, const VoxelSlice& slice)
