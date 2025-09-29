@@ -124,6 +124,5 @@ AABB Rotated::getBounds_impl() const {
         newMax.y = std::max(newMax.y, next.y);
         newMax.z = std::max(newMax.z, next.z);
     }
-
     return {newMin, newMax};
 }

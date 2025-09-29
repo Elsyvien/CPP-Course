@@ -23,7 +23,7 @@ public:
 
   Shape operator&(const Shape & other) const;
   Shape operator|(const Shape & other) const;
-  Shape operator^(const Shape & other) const;
+  Shape operator^(const Shape & other) const; 
   Shape operator+(const Shape & other) const;
   Shape operator-(const Shape & other) const;
   Shape operator!() const;

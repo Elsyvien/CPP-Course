@@ -143,3 +143,15 @@ Shape Shape::operator|(const Shape& other) const {
 Shape Shape::operator^(const Shape& other) const {
     return (Xor(*this, other)).clone();
 }
+
+Shape Shape::scaled(Point3D factor) const {
+    return Scaled(*this, factor).clone();
+}
+
+Shape Shape::translated(Point3D offset) const {
+    return Translated(*this, offset).clone();
+}
+
+Shape Shape::rotated(Axis axis, float angle) const {
+    return Rotated(*this, axis, angle).clone();
+}
