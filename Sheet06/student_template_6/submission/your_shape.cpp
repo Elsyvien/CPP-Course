@@ -69,10 +69,21 @@ Shape example_shape() {
 }
 #endif // end example shapes
 
+Shape create_rocket() {
+    const Shape nose = Sphere{}.scaled({0.2f, 0.5f, 0.2f}).translated({0.0f, 1.3f, 0.0f});
+    const Shape body = Cylinder{}.scaled({0.25f, 1.0f, 0.25f});
+    const Shape booster = Cylinder{}.scaled({0.3f, 0.6f, 0.3f}).translated({0.0f, -0.7f, 0.0f});
+    
+    const Shape fin1 = Cube{}.scaled({0.1f, 0.3f, 0.4f}).translated({0.3f, -0.9f, 0.0f});
+    const Shape fin2 = Cube{}.scaled({0.4f, 0.3f, 0.1f}).translated({0.0f, -0.9f, 0.3f});
+    const Shape fin3 = Cube{}.scaled({0.1f, 0.3f, 0.4f}).translated({-0.3f, -0.9f, 0.0f});
+    const Shape fin4 = Cube{}.scaled({0.4f, 0.3f, 0.1f}).translated({0.0f, -0.9f, -0.3f});
+    
+    const Shape nozzle = Cylinder{}.scaled({0.35f, 0.2f, 0.35f}).translated({0.0f, -1.1f, 0.0f});
+    
+    return nose + body + booster + fin1 + fin2 + fin3 + fin4 + nozzle;
+}
 
-/// implementation of your custom shape (bonus task)
 Shape your_shape() {
-    // return whatever shape you like in here - this file does not influence the evaluation of your submission (except potential bonus points)
-
-    return example_shape();
+    return create_rocket();
 }
