@@ -144,24 +144,35 @@ bool VoxelGrid::isSet(uint32_t x, uint32_t y, uint32_t z) const
 
 Point3D VoxelGrid::voxelCenter(uint32_t x, uint32_t y, uint32_t z) const
 {
-    auto boundMin = bounds.min;
-    auto boundMax = bounds.max;
+    Point3D boundMin = bounds.min;
+    Point3D boundMax = bounds.max;
     
     Point3D range = boundMax - boundMin;
-    Point3D step{
-        res_x ? range.x / static_cast<float>(res_x) : 0.0f,
-        res_y ? range.y / static_cast<float>(res_y) : 0.0f,
-        res_z ? range.z / static_cast<float>(res_z) : 0.0f
-    };
-
-    Point3D offset{
-        (static_cast<float>(x) + 0.5f) * step.x,
-        (static_cast<float>(y) + 0.5f) * step.y,
-        (static_cast<float>(z) + 0.5f) * step.z
-    };
-
-    return boundMin + offset;
     
+    float stepX = 0.0f;
+    float stepY = 0.0f;
+    float stepZ = 0.0f;
+    
+    if (res_x > 0) {
+        stepX = range.x / static_cast<float>(res_x);
+    }
+    if (res_y > 0) {
+        stepY = range.y / static_cast<float>(res_y);
+    }
+    if (res_z > 0) {
+        stepZ = range.z / static_cast<float>(res_z);
+    }
+
+    float offsetX = (static_cast<float>(x) + 0.5f) * stepX;
+    float offsetY = (static_cast<float>(y) + 0.5f) * stepY;
+    float offsetZ = (static_cast<float>(z) + 0.5f) * stepZ;
+    
+    Point3D center;
+    center.x = boundMin.x + offsetX;
+    center.y = boundMin.y + offsetY;
+    center.z = boundMin.z + offsetZ;
+    
+    return center;
 }
 
 std::ostream& operator<<(std::ostream& ostream, const VoxelSlice& slice)
