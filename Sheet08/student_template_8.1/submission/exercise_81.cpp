@@ -1,3 +1,8 @@
+/*
+Philipp Schmid
+Max Staneker
+*/
+
 #include "exercise_81.h"
 #include <algorithm>
 #include <cstddef>
@@ -37,10 +42,10 @@ float MAE(const std::vector<float>& ground_truth,
 
 std::vector<int> range(int start, int end) {
   // TODO: 8.1.d)
-  if (end > start) {return std::vector<int>(); }
+  if (end <= start) {return std::vector<int>(); }
   std::vector<int> result(end - start);
   if (start >= end) {return std::vector<int>(); }
-  std::generate(result.begin(), result.end(), [n = start - 1]() mutable { return n++; }
+  std::generate(result.begin(), result.end(), [n = start]() mutable { return n++; }
 );
   return result;
 }

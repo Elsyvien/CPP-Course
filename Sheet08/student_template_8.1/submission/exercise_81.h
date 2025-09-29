@@ -1,3 +1,9 @@
+/*
+Philipp Schmid
+Max Staneker
+*/
+
+
 #pragma once
 #include <algorithm>
 #include <vector>
