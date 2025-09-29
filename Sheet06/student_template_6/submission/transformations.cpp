@@ -44,7 +44,7 @@ AABB Translated::getBounds_impl() const {
 }
 
 bool Translated::isInside_impl(const Point3D& p) const {
-    Point3D translated = p + translation;
+    Point3D translated = p - translation;
     return sub_shape.isInside(translated);
 }
 
