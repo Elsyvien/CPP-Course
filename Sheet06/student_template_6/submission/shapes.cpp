@@ -1,3 +1,7 @@
+/*
+Max Staneker
+Philipp Schmid
+*/
 #include "shapes.h"
 
 #include "transformations.h"

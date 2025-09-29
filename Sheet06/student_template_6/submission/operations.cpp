@@ -1,3 +1,7 @@
+/*
+Max Staneker
+Philipp Schmid
+*/
 #include "operations.h"
 #include "shapes.h"
 

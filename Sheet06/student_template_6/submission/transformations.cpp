@@ -1,3 +1,7 @@
+/*
+Max Staneker
+Philipp Schmid
+*/
 #include "transformations.h"
 #include <cmath>
 

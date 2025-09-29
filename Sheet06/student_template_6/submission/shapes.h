@@ -1,3 +1,7 @@
+/*
+Max Staneker
+Philipp Schmid
+*/
 #pragma once
 
 #include "point3d.h"
