@@ -26,7 +26,17 @@ float MAE(const std::vector<float>& ground_truth,
 
 
 // TODO 8.1.c: implement zip here!
-
+template<typename T1, typename T2>
+std::vector<std::pair<T1, T2>> zip (const std::vector<T1>& vec1, const std::vector<T2>& vec2) {
+   if (vec1.size() == 0) return std::vector<std::pair<T1, T2>>();
+    if (vec2.size() == 0) return std::vector<std::pair<T1, T2>>();
+    if (vec1.size() != vec2.size()) return std::vector<std::pair<T1, T2>>();
+    std::size_t N = vec1.size(); 
+    std::vector<std::pair<T1, T2>> result(N);
+    std::transform(vec1.begin(), vec1.end(), vec2.begin(), result.begin(),
+                   [](T1 a, T2 b) { return std::make_pair(a, b); } );
+    return result;
+}
 /**
  * @brief Generates a vector with integer values in the range [start, end[
  * Note: The list must be empty if start >= end
