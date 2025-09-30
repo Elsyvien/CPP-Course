@@ -1,3 +1,7 @@
+/*
+Philipp Schmid: 5703070
+Max Staneker: 7018590
+*/
 #include "exercise_09_1.h"
 
 #include <cstdint>
@@ -34,6 +38,8 @@ std::mutex toy_mutex;
  * @brief Sell a book
  */
 void sell_book(Shop &shop) {
+  std::lock_guard<std::mutex> l1(item_mutex);
+  std::lock_guard<std::mutex> l2(book_mutex);
   if (shop.books_on_stock <= 0) {
     throw std::runtime_error("Books are out of stock!");
   }
@@ -46,6 +52,8 @@ void sell_book(Shop &shop) {
  * @brief Sell a toy
  */
 void sell_toy(Shop &shop) {
+  std::lock_guard<std::mutex> l1(item_mutex);
+  std::lock_guard<std::mutex> l2(toy_mutex);
   if (shop.toys_on_stock <= 0) {
     throw std::runtime_error("Toys are out of stock!");
   }
