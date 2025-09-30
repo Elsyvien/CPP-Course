@@ -1,3 +1,7 @@
+/*
+Philipp Schmid
+Max Staneker
+*/
 #pragma once
 
 #include <cstdint>
@@ -91,9 +95,44 @@ public:
     static std::enable_if_t<std::is_trivially_copyable_v<TNode>, DerivedType>
     deserialize(const std::string& filename)
     {
-        // TODO: task 10.2
+        DerivedType result;
+        std::ifstream file;
+        file.open(filename);
 
-        // return an empty graph of DerivedType by default
-        return {};
+        if(!file) {throw std::runtime_error("File opening not Possible!");}
+        size_t numNodesTemp = 0;
+
+        file.read(reinterpret_cast<char*>(&numNodesTemp), sizeof(numNodesTemp));
+        size_t numNodes = (size_t)(numNodesTemp);
+        result.initialize_nodes(numNodes);
+        
+        if(numNodes > 0) {
+            TNode* nodePtr = result.data();
+            size_t bytes = numNodes * sizeof(TNode);
+            file.read(reinterpret_cast<char*>(nodePtr), static_cast<std::streamsize>(bytes));
+        }
+
+        size_t outer = 0;
+        file.read(reinterpret_cast<char*>(&outer), sizeof(outer));
+        result.edges.clear();
+        result.edges.resize((size_t)(outer));
+        for (size_t i = 0; i < result.edges.size(); i++) {
+        size_t inner = 0;
+        file.read(reinterpret_cast<char*>(&inner), sizeof(inner));
+
+        //size_t inner = (size_t)inner;
+        result.edges[i].resize(inner);
+
+        for (size_t j = 0; j < inner; j++) {
+            size_t to = 0;
+            float weight = 0.0f;
+
+            file.read(reinterpret_cast<char*>(&to), sizeof(to));
+            file.read(reinterpret_cast<char*>(&weight), sizeof(weight));
+
+            result.edges[i][j] = std::make_pair(static_cast<std::uint32_t>(to), weight);
+        }
+    }
+        return result;
     }
 };
