@@ -1,3 +1,7 @@
+/*
+Philipp Schmid: 5703070
+Max Staneker: 7018590
+*/
 #pragma once
 
 /**

@@ -1,3 +1,7 @@
+/*
+Philipp Schmid: 5703070
+Max Staneker: 7018590
+*/
 #include "exercise_09_4.h"
 
 #include <chrono>
@@ -91,7 +95,10 @@ std::vector<int> hist_critical(int N, int bins) {
 #pragma omp parallel for
   for (int i = 0; i < N; ++i) {
     int bin = sample_from_normal_distribution();
+    #pragma omp critical
+    {
     ++hist[static_cast<size_t>(bin)];
+    }
   }
   t.stop();
   return hist;
@@ -104,14 +111,27 @@ std::vector<int> hist_critical(int N, int bins) {
 std::vector<int> hist_element_lock(int N, int bins) {
   std::vector<int> hist(static_cast<size_t>(bins), 0);
 
+
+  std::vector<omp_lock_t> locks(bins);
+  for (int i = 0; i < bins; i++) {
+    omp_init_lock(&locks[i]);//initializes a lock for every bin
+  }
+
+
   Timer t("Histogram with bin-wise locks");
 #pragma omp parallel for
   for (int i = 0; i < N; ++i) {
     int bin = sample_from_normal_distribution();
+    //locks only this bin(thats because so no other thread can change it at the same time)
+    omp_set_lock(&locks[bin]);
     ++hist[static_cast<size_t>(bin)];
-  }
-  t.stop();
+    omp_unset_lock(&locks[bin]);//releases lock again
 
+  }
+  //each bin has its own lock, so multiple threads can still update different bins in parallel
+
+
+  t.stop();
   return hist;
 }
 
@@ -138,6 +158,15 @@ std::vector<int> hist_lockfree(int N, int bins) {
     // find a lock-free way to merge bins (hint: iterate over bins in the outer
     // loop and aggregate in the inner loop
   }
+  for (int x = 0; x < bins; ++x) {
+    int sum = 0;
+    for (int y = 0; y < thread_count; ++y) {
+      sum += hist_large[y * bins + x];
+    }
+    hist[x] = sum;
+  }
+  //final merge, each thread had its own local histogram now we just add them together, so no locks needed here
+
   t.stop();
   return hist;
 }
