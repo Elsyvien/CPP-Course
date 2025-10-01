@@ -30,8 +30,18 @@ std::vector<size_t> ShortestPaths::compute_shortest_path(size_t from, size_t to)
 
     std::vector<float> distance(n, infinity);
     std::vector<bool> visited(n, false);
-    std::vector<size_t> queue;
+    std::vector<size_t> queue(n);
     std::vector<size_t> previous(n, undefined);
+    std::vector<float> heuristic(n, 0.0f);
+    {
+        float to_x = adjacency_matrix[to].pos_x;
+        float to_y = adjacency_matrix[to].pos_y;
+        for (auto i = 0; i < n; i++) {
+            float dx = adjacency_matrix[i].pos_x - to_x;
+            float dy = adjacency_matrix[i].pos_y - to_y;
+            heuristic[i] = std::sqrt(dx*dx + dy*dy);
+        }
+    }
 
     queue.push_back(from);
 
@@ -53,14 +63,14 @@ std::vector<size_t> ShortestPaths::compute_shortest_path(size_t from, size_t to)
 
         if (bestIndex == undefined) {break;} // no nodes
 
-        queue[bestIndex] = undefined; 
+        visited[bestIndex] = true;
         num_visited++;
 
         if (bestIndex == to) { break; } // reached destination
 
         const auto& edges = adjacency_matrix[bestIndex];
         for (auto i = 0; i < n; i++) {
-            if (queue[i] == undefined) { continue; }
+            if (visited[i]) { continue; }
             if (!edges[i].has_value()) { continue; }
 
             float weight = edges[i].value();

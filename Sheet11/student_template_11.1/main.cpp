@@ -108,8 +108,8 @@ int main() {
     // Stuttgart - Ulm should be about 90 km
     // Berlin - Munich should be about 545 km
 
-    //auto path = graph.compute_shortest_path("Stuttgart", "Ulm");
-    auto path = graph.compute_shortest_path("Berlin", "Munich");
+    auto path = graph.compute_shortest_path("Stuttgart", "Ulm");
+    //auto path = graph.compute_shortest_path("Berlin", "Munich");
     if (!path.empty()) {
         std::cout << "Shortest path: ";
         for (size_t i=0; i<path.size()-1; ++i) {
