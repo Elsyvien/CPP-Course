@@ -17,7 +17,13 @@ int main() {
     // https://dilbert.com/strip/2018-11-13
 
     // TODO: task 10.2 b)
-
+    try {
+        RandomWalkGraph graph = RandomWalkGraph::deserialize("secret.graph");
+        std::cout << "Imported nodes";
+    } catch (const std::exception& e) {
+        std::cerr << "Error while importing graph: " << e.what() << std::endl;
+    }
+    return 0;
     // TODO: task 10.3 a)
 
     // TODO: task 10.3 c)
