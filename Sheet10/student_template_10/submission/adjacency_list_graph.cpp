@@ -57,7 +57,7 @@ std::optional<float> detail::AdjacencyListGraphBase::get_edge(uint32_t from, uin
 
 const std::vector<std::pair<uint32_t, float>>& detail::AdjacencyListGraphBase::get_edges_starting_at(uint32_t node) const
 {
-    const std::vector<std::pair<uint32_t, float>> empty_edges;
+    static const std::vector<std::pair<uint32_t, float>> empty_edges;
     if (node >= get_num_nodes()) {return empty_edges;}
     if (node >= edges.size()) {return empty_edges;}
 
