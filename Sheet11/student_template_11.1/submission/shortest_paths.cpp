@@ -55,8 +55,8 @@ std::vector<size_t> ShortestPaths::compute_shortest_path(size_t from, size_t to)
 
         for (auto i = 0; i < n; i++) {
             auto id = queue[i];
-            if (!visited[id] && distance[id] < bestDistance) {
-                bestDistance = distance[id];
+            if (!visited[id] && distance[id] + heuristic[id] < bestDistance) {
+                bestDistance = distance[id] + heuristic[id];
                 bestIndex = id;
             }
         }
@@ -64,9 +64,10 @@ std::vector<size_t> ShortestPaths::compute_shortest_path(size_t from, size_t to)
         if (bestIndex == undefined) {break;} // no nodes
 
         visited[bestIndex] = true;
-        num_visited++;
+      
 
         if (bestIndex == to) { break; } // reached destination
+        num_visited++;
 
         const auto& edges = adjacency_matrix[bestIndex];
         for (auto i = 0; i < n; i++) {
