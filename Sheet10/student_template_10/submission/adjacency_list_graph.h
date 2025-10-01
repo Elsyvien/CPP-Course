@@ -112,27 +112,21 @@ public:
             file.read(reinterpret_cast<char*>(nodePtr), static_cast<std::streamsize>(bytes));
         }
 
-        size_t outer = 0;
-        file.read(reinterpret_cast<char*>(&outer), sizeof(outer));
-        result.edges.clear();
-        result.edges.resize((size_t)(outer));
-        for (size_t i = 0; i < result.edges.size(); i++) {
-        size_t inner = 0;
-        file.read(reinterpret_cast<char*>(&inner), sizeof(inner));
-
-        //size_t inner = (size_t)inner;
-        result.edges[i].resize(inner);
-
-        for (size_t j = 0; j < inner; j++) {
-            size_t to = 0;
-            float weight = 0.0f;
-
-            file.read(reinterpret_cast<char*>(&to), sizeof(to));
-            file.read(reinterpret_cast<char*>(&weight), sizeof(weight));
-
-            result.edges[i][j] = std::make_pair(static_cast<std::uint32_t>(to), weight);
+        result.edges.resize(numNodes);
+        for (size_t i = 0; i < numNodes; i++) {
+            size_t num_edges = 0;
+            file.read(reinterpret_cast<char*>(&num_edges), sizeof(num_edges));
+            
+            for (size_t j = 0; j < num_edges; j++) {
+                uint32_t to = 0;
+                float weight = 0.0f;
+                
+                file.read(reinterpret_cast<char*>(&to), sizeof(to));
+                file.read(reinterpret_cast<char*>(&weight), sizeof(weight));
+                
+                result.edges[i].push_back(std::make_pair(to, weight));
+            }
         }
-    }
         return result;
     }
 };

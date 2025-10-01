@@ -70,9 +70,9 @@ void RandomWalkGraph::write_histogram_pgm(const std::string& filename, uint32_t 
     if (width * height != size()) {throw std::runtime_error("WRONG SIZE!");}
 
     std::ofstream file;
-    file.open(filename);
+    file.open(filename, std::ios::binary);
     if (!file) {throw std::runtime_error("File opening not Possible!");}
-    file << "P2\n" << width << " " << height << "\n" << 255 << "\n";
+    file << "P5\n" << width << " " << height << "\n" << 255 << "\n";
 
     std::vector<unsigned char> pixels = compute_normalized_histogram<unsigned char>(static_cast<unsigned char>(255));
 
